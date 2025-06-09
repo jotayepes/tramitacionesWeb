@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Tramitaciones</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #e3f0ff 0%, #f9f9f9 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 4rem auto 0 auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(60, 90, 130, 0.10), 0 1.5px 4px rgba(60, 90, 130, 0.08);
+            padding: 2.5rem 2rem 2rem 2rem;
+        }
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        .boton {
+            display: inline-block;
+            min-width: 160px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        .boton:hover {
+            background: linear-gradient(90deg, #125ea2 60%, #1976d2 100%);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+            transform: translateY(-2px) scale(1.03);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: #f8fbff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+        }
+        th, td {
+            border: 1px solid #e0e7ef;
+            padding: 0.7rem 0.5rem;
+            text-align: left;
+            word-break: break-word;
+        }
+        th {
+            background: #e3f0ff;
+            color: #1976d2;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background: #f4f8fc;
+        }
+        .acciones {
+            text-align: center;
+        }
+        .centrado {
+            text-align: center;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 1100px) {
+            .container { padding: 1.2rem 0.2rem; }
+            h1 { font-size: 1.3rem; }
+            th, td { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <a href="/" class="boton">Inicio</a>
+            <a href="/nueva-tramitacion" class="boton">Crear Tramitación</a>
+            <a href="/buscar-tramitacion" class="boton">Buscar</a>
+        </div>
+        <h1>Listado de Tramitaciones</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Nº Tramitación</th>
+                    <th>Nº Albarán</th>
+                    <th>Productos</th>
+                    <th class="acciones">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for t in tramitaciones %}
+                <tr>
+                    <td>{{ t.id }}</td>
+                    <td>{{ t.fecha }}</td>
+                    <td>{% if t.productos %}{{ t.productos[0].num_tramitacion }}{% endif %}</td>
+                    <td>{% if t.productos %}{{ t.productos[0].num_albaran }}{% endif %}</td>
+                    <td>{{ t.productos|length }}</td>
+                    <td class="acciones">
+                        <a href="/tramitacion/{{ t.id }}" class="boton">Ver Detalle</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

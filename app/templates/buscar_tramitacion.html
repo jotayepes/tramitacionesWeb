@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Tramitación</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #e3f0ff 0%, #f9f9f9 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 700px;
+            margin: 4rem auto 0 auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(60, 90, 130, 0.10), 0 1.5px 4px rgba(60, 90, 130, 0.08);
+            padding: 2.5rem 2rem 2rem 2rem;
+        }
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        .boton {
+            display: inline-block;
+            min-width: 160px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        .boton:hover {
+            background: linear-gradient(90deg, #125ea2 60%, #1976d2 100%);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+            transform: translateY(-2px) scale(1.03);
+        }
+        form {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        label {
+            font-weight: 500;
+            color: #1976d2;
+        }
+        input, select {
+            padding: 0.5rem 0.7rem;
+            border-radius: 5px;
+            border: 1px solid #b0c4de;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .resultados {
+            margin-top: 2.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            background: #f8fbff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+        }
+        th, td {
+            border: 1px solid #e0e7ef;
+            padding: 0.7rem 0.5rem;
+            text-align: left;
+        }
+        th {
+            background: #e3f0ff;
+            color: #1976d2;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background: #f4f8fc;
+        }
+        .acciones {
+            text-align: center;
+        }
+        .centrado {
+            text-align: center;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 1.2rem 0.2rem; }
+            h1 { font-size: 1.3rem; }
+            th, td { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Buscar tramitación</h1>
+        <form method="get" action="/buscar-tramitacion">
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+                <div style="flex:1 1 180px; min-width:150px;">
+                    <label>Fecha:</label>
+                    <input type="date" name="fecha">
+                </div>
+                <div style="flex:1 1 180px; min-width:150px;">
+                    <label>Nº Albarán:</label>
+                    <input type="text" name="num_albaran">
+                </div>
+                <div style="flex:1 1 180px; min-width:150px;">
+                    <label>Nº Tramitación:</label>
+                    <input type="text" name="num_tramitacion">
+                </div>
+                <div style="flex:1 1 180px; min-width:150px;">
+                    <label>Código interno:</label>
+                    <input type="text" name="codigo_interno">
+                </div>
+                <div style="flex:1 1 180px; min-width:150px;">
+                    <label>Parte:</label>
+                    <input type="text" name="parte">
+                </div>
+                <div style="flex:1 1 180px; min-width:150px;">
+                    <label>SN/IMEI:</label>
+                    <input type="text" name="sn_imei">
+                </div>
+            </div>
+            <div style="margin-top:1.5rem; display:flex; justify-content:center; gap:1.5rem;">
+                <button type="submit" class="boton">Buscar</button>
+                <a href="/" class="boton">Volver</a>
+            </div>
+        </form>
+        {% if resultados is not none %}
+        <div class="resultados">
+            {% if resultados|length == 0 %}
+                <p class="centrado" style="color:#b00; font-weight:500;">No se encontraron resultados.</p>
+            {% else %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Nº Tramitación</th>
+                            <th>Nº Albarán</th>
+                            <th>Modelo</th>
+                            <th>SN/IMEI</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for tramitacion in resultados %}
+                        {% for producto in tramitacion.productos %}
+                        <tr>
+                            <td>{{ tramitacion.id }}</td>
+                            <td>{{ producto.fecha }}</td>
+                            <td>{{ producto.num_tramitacion }}</td>
+                            <td>{{ producto.num_albaran }}</td>
+                            <td>{{ producto.modelo }}</td>
+                            <td>{{ producto.sn_imei }}</td>
+                            <td class="acciones">
+                                <a href="/tramitacion/{{ tramitacion.id }}" class="boton" style="padding:0.4rem 1rem; font-size:0.98rem; min-width:unset;">Ver</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

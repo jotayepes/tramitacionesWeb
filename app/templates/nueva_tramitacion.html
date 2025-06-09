@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Tramitación</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #e3f0ff 0%, #f9f9f9 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 900px;
+            margin: 4rem auto 0 auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(60, 90, 130, 0.10), 0 1.5px 4px rgba(60, 90, 130, 0.08);
+            padding: 2.5rem 2rem 2rem 2rem;
+        }
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        .boton {
+            display: inline-block;
+            min-width: 160px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        .boton:hover, button[type="submit"]:hover {
+            background: linear-gradient(90deg, #125ea2 60%, #1976d2 100%);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+            transform: translateY(-2px) scale(1.03);
+        }
+        form {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            font-weight: 500;
+            color: #1976d2;
+        }
+        input, select, textarea {
+            padding: 0.5rem 0.7rem;
+            border-radius: 5px;
+            border: 1px solid #b0c4de;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.5rem;
+            margin-left: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        .botones-formulario {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        button[type="button"], button[type="submit"] {
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        button[type="button"]:hover, button[type="submit"]:hover {
+            background: linear-gradient(90deg, #125ea2 60%, #1976d2 100%);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .centrado {
+            text-align: center;
+        }
+        @media (max-width: 900px) {
+            .container { padding: 1.2rem 0.2rem; }
+            h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nueva Tramitación</h1>
+        <form action="/nueva-tramitacion" method="post">
+            <div id="productos">
+                <div class="producto" style="border:2px solid #1976d2; border-radius:12px; padding:1.5rem 1.2rem; margin-bottom:2rem; background:#f8fbff;">
+                    <label>Modelo:</label>
+                    <input type="text" name="modelo" required>
+                    <label>SN/IMEI:</label>
+                    <input type="text" name="sn_imei" required>
+                    <label>Descripción de la avería:</label>
+                    <input type="text" name="descripcion_averia" required>
+                    <label>Caja:</label>
+                    <input type="text" name="caja" required>
+                    <label>Cargador:</label>
+                    <input type="text" name="cargador" required>
+                    <label>Otros:</label>
+                    <input type="text" name="otros" required>
+                    <label>Parte:</label>
+                    <input type="text" name="parte" required>
+                    <label>De tienda:</label>
+                    <input type="text" name="de_tienda" required>
+                    <label>Código interno:</label>
+                    <input type="text" name="codigo_interno" required>
+                </div>
+            </div>
+            <div class="botones-formulario">
+                <button type="button" onclick="agregarProducto()" class="boton">Añadir producto</button>
+                <button type="submit" class="boton">Guardar</button>
+                <a href="/" class="boton" style="margin-left:0.5rem;">Cancelar</a>
+            </div>
+        </form>
+        <div class="centrado" style="margin-top:2.5rem;">
+            <div style="display:flex; gap:2rem; justify-content:center; flex-wrap:wrap;">
+                <div>
+                    <label style="font-weight:600; color:#1976d2;">Nº Albarán:</label>
+                    <input type="text" name="num_albaran" id="num_albaran_general" required style="font-weight:600; background:#e3f0ff;">
+                </div>
+                <div>
+                    <label style="font-weight:600; color:#1976d2;">Nº Tramitación:</label>
+                    <input type="text" name="num_tramitacion" id="num_tramitacion_general" required style="font-weight:600; background:#e3f0ff;">
+                </div>
+                <div>
+                    <label style="font-weight:600; color:#1976d2;">Fecha (YYYY-mm-dd):</label>
+                    <input type="text" name="fecha" id="fecha_general" required style="font-weight:600; background:#e3f0ff;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Autocompletar los campos generales
+        window.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const resp = await fetch('/api/siguiente-num-tramitacion');
+                if (resp.ok) {
+                    const data = await resp.json();
+                    document.getElementById('num_tramitacion_general').value = data.siguiente;
+                }
+            } catch (e) {}
+            try {
+                const resp = await fetch('/api/ultimo-num-albaran');
+                if (resp.ok) {
+                    const data = await resp.json();
+                    if (data.ultimo) {
+                        document.getElementById('num_albaran_general').value = data.ultimo;
+                    }
+                }
+            } catch (e) {}
+            const hoy = new Date();
+            const yyyy = hoy.getFullYear();
+            const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+            const dd = String(hoy.getDate()).padStart(2, '0');
+            document.getElementById('fecha_general').value = `${yyyy}-${mm}-${dd}`;
+        });
+
+        function agregarProducto() {
+            const contenedor = document.getElementById("productos");
+            const anterior = contenedor.lastElementChild;
+            const nuevo = anterior.cloneNode(true);
+            // Vaciar todos los campos del nuevo producto
+            nuevo.querySelectorAll('input').forEach(input => {
+                input.value = "";
+            });
+            contenedor.appendChild(nuevo);
+        }
+        // Al enviar el formulario, copiar los campos generales a cada producto
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const num_albaran = document.getElementById('num_albaran_general').value;
+            const num_tramitacion = document.getElementById('num_tramitacion_general').value;
+            const fecha = document.getElementById('fecha_general').value;
+            document.querySelectorAll('#productos .producto').forEach(function(prod) {
+                let input;
+                input = prod.querySelector('input[name="num_albaran"]');
+                if (!input) {
+                    input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'num_albaran';
+                    prod.appendChild(input);
+                }
+                input.value = num_albaran;
+                input = prod.querySelector('input[name="num_tramitacion"]');
+                if (!input) {
+                    input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'num_tramitacion';
+                    prod.appendChild(input);
+                }
+                input.value = num_tramitacion;
+                input = prod.querySelector('input[name="fecha"]');
+                if (!input) {
+                    input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'fecha';
+                    prod.appendChild(input);
+                }
+                input.value = fecha;
+            });
+        });
+    </script>
+</body>
+</html>

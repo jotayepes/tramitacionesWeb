@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Tramitación</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #e3f0ff 0%, #f9f9f9 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 1425px;
+            margin: 4rem auto 0 auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(60, 90, 130, 0.10), 0 1.5px 4px rgba(60, 90, 130, 0.08);
+            padding: 2.5rem 2rem 2rem 2rem;
+        }
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        .boton {
+            display: inline-block;
+            min-width: 160px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        .boton:hover {
+            background: linear-gradient(90deg, #125ea2 60%, #1976d2 100%);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .tabla-productos {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: #f8fbff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+            table-layout: fixed;
+        }
+        th, td {
+            border: 1px solid #e0e7ef;
+            padding: 0.7rem 0.5rem;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        th {
+            background: #e3f0ff;
+            color: #1976d2;
+            font-weight: 600;
+            min-width: 750px;
+            max-width: 1350px;
+            white-space: normal;
+            overflow: visible;
+            text-overflow: unset;
+        }
+        td {
+            min-width: 750px;
+            max-width: 1350px;
+            cursor: pointer;
+            white-space: nowrap !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        /* Tooltip estilo moderno */
+        td[data-fulltext] {
+            position: relative;
+        }
+        td[data-fulltext]:hover::after {
+            content: attr(data-fulltext);
+            position: fixed;
+            left: var(--tooltip-x, 50vw);
+            top: var(--tooltip-y, 80vh);
+            background: #222;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 7px;
+            white-space: pre-line;
+            font-size: 1rem;
+            z-index: 10000;
+            min-width: 180px;
+            max-width: 400px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+            pointer-events: none;
+            transform: translate(10px, 10px);
+        }
+        form {
+            margin-bottom: 1.5rem;
+        }
+        input[type="file"] {
+            margin-top: 0.5rem;
+        }
+        input[type="file"]::file-selector-button {
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.6rem 1.2rem;
+            margin-right: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        input[type="file"]::file-selector-button:hover {
+            background: linear-gradient(90deg, #125ea2 60%, #1976d2 100%);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+            transform: translateY(-2px) scale(1.03);
+        }
+        button[type="submit"] {
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.5rem;
+            margin-left: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(90deg, #125ea2 60%, #1976d2 100%);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .miniatura {
+            cursor: pointer;
+        }
+        #modalImagen {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.7);
+            align-items: center;
+            justify-content: center;
+        }
+        #cerrarModal {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #imagenGrande {
+            max-width: 90vw;
+            max-height: 90vh;
+            box-shadow: 0 0 20px #000;
+            border-radius: 8px;
+        }
+        .centrado {
+            text-align: center;
+        }
+        @media (max-width: 900px) {
+            .container { padding: 1.2rem 0.2rem; }
+            h1 { font-size: 1.3rem; }
+            th, td { font-size: 0.95rem; }
+        }
+    </style>
+    <script>
+    // Tooltip sigue al cursor en celdas truncadas
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('td[data-fulltext]').forEach(function(td) {
+            td.addEventListener('mousemove', function(e) {
+                this.style.setProperty('--tooltip-x', e.clientX + 'px');
+                this.style.setProperty('--tooltip-y', e.clientY + 'px');
+            });
+            td.addEventListener('mouseleave', function() {
+                this.style.removeProperty('--tooltip-x');
+                this.style.removeProperty('--tooltip-y');
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalle de Tramitación #{{ tramitacion.id }}</h1>
+        <p><b>Fecha:</b> {{ tramitacion.fecha }}</p>
+        <h2>Productos</h2>
+        <table class="tabla-productos">
+            <thead>
+                <tr>
+                    <th>Nº Albarán</th>
+                    <th>Nº Tramitación</th>
+                    <th>Fecha</th>
+                    <th>Modelo</th>
+                    <th>SN/IMEI</th>
+                    <th>Descripción Avería</th>
+                    <th>Caja</th>
+                    <th>Cargador</th>
+                    <th>Otros</th>
+                    <th>Parte</th>
+                    <th>De tienda</th>
+                    <th>Código interno</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for producto in tramitacion.productos %}
+                <tr>
+                    <td data-fulltext="{{ producto.num_albaran }}" title="{{ producto.num_albaran }}">{{ producto.num_albaran }}</td>
+                    <td data-fulltext="{{ producto.num_tramitacion }}" title="{{ producto.num_tramitacion }}">{{ producto.num_tramitacion }}</td>
+                    <td data-fulltext="{{ producto.fecha }}" title="{{ producto.fecha }}">{{ producto.fecha }}</td>
+                    <td data-fulltext="{{ producto.modelo }}" title="{{ producto.modelo }}">{{ producto.modelo }}</td>
+                    <td data-fulltext="{{ producto.sn_imei }}" title="{{ producto.sn_imei }}">{{ producto.sn_imei }}</td>
+                    <td data-fulltext="{{ producto.descripcion_averia }}" title="{{ producto.descripcion_averia }}">{{ producto.descripcion_averia }}</td>
+                    <td data-fulltext="{{ producto.caja }}" title="{{ producto.caja }}">{{ producto.caja }}</td>
+                    <td data-fulltext="{{ producto.cargador }}" title="{{ producto.cargador }}">{{ producto.cargador }}</td>
+                    <td data-fulltext="{{ producto.otros }}" title="{{ producto.otros }}">{{ producto.otros }}</td>
+                    <td data-fulltext="{{ producto.parte }}" title="{{ producto.parte }}">{{ producto.parte }}</td>
+                    <td data-fulltext="{{ producto.de_tienda }}" title="{{ producto.de_tienda }}">{{ producto.de_tienda }}</td>
+                    <td data-fulltext="{{ producto.codigo_interno }}" title="{{ producto.codigo_interno }}">{{ producto.codigo_interno }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p style="margin-top:2rem;" class="centrado"><a href="/" class="boton">Volver</a></p>
+        <hr>
+        <h2>Imágenes</h2>
+        <form action="/tramitacion/{{ tramitacion.id }}/imagenes" method="post" enctype="multipart/form-data">
+            <input type="file" name="imagenes" accept="image/*" multiple required>
+            <button type="submit">Cargar Imágenes</button>
+        </form>
+        {% if tramitacion.productos and tramitacion.productos[0].num_tramitacion %}
+            {% set carpeta = tramitacion.productos[0].num_tramitacion.replace('/', '_') %}
+            {% set ruta_carpeta = 'archivos_generados/' ~ carpeta %}
+            {% set imagenes = [] %}
+            {# NOTA: La lógica de búsqueda de imágenes se debe hacer en Python, no en Jinja2. #}
+            {% for img in imagenes_encontradas if imagenes_encontradas is defined %}
+                {% set _ = imagenes.append(img) %}
+            {% endfor %}
+            {% if imagenes|length > 0 %}
+        <div style="margin-top:1.5rem; display: flex; flex-wrap: wrap; gap: 1rem;">
+            {% for img in imagenes %}
+                <img src="{{ img }}" alt="Imagen" class="miniatura" style="max-width:120px; max-height:120px; object-fit:cover; border:1px solid #ccc; margin-bottom:0.5rem; cursor:pointer;">
+            {% endfor %}
+        </div>
+        <!-- Modal para imagen grande -->
+        <div id="modalImagen" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); align-items:center; justify-content:center;">
+            <span id="cerrarModal" style="position:absolute; top:30px; right:50px; color:white; font-size:2.5rem; cursor:pointer; font-weight:bold;">&times;</span>
+            <img id="imagenGrande" src="" alt="Imagen grande" style="max-width:90vw; max-height:90vh; box-shadow:0 0 20px #000; border-radius:8px;">
+        </div>
+        <script>
+        // Mostrar imagen grande al hacer click
+        document.querySelectorAll('.miniatura').forEach(function(img) {
+            img.addEventListener('click', function() {
+                document.getElementById('imagenGrande').src = this.src;
+                document.getElementById('modalImagen').style.display = 'flex';
+            });
+        });
+        // Cerrar modal
+        document.getElementById('cerrarModal').onclick = function() {
+            document.getElementById('modalImagen').style.display = 'none';
+            document.getElementById('imagenGrande').src = '';
+        };
+        // Cerrar modal al hacer click fuera de la imagen
+        document.getElementById('modalImagen').onclick = function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                document.getElementById('imagenGrande').src = '';
+            }
+        };
+        </script>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

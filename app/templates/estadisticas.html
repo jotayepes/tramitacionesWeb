@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #e3f0ff 0%, #f9f9f9 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 900px;
+            margin: 4rem auto 0 auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(60, 90, 130, 0.10), 0 1.5px 4px rgba(60, 90, 130, 0.08);
+            padding: 2.5rem 2rem 2rem 2rem;
+        }
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        .boton {
+            display: inline-block;
+            min-width: 160px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        .boton:hover {
+            background: linear-gradient(90deg, #125ea2 60%, #1976d2 100%);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .estadistica {
+            background: #f8fbff;
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+            text-align: center;
+        }
+        .estadistica h2 {
+            color: #1976d2;
+            font-size: 1.3rem;
+            margin-bottom: 0.7rem;
+            text-align: center;
+        }
+        .estadistica p, .estadistica ul, .estadistica li {
+            font-size: 1.1rem;
+            margin: 0.3rem 0;
+            text-align: center;
+        }
+        .estadistica ul {
+            list-style: none;
+            padding: 0;
+        }
+        .estadistica li {
+            margin-bottom: 0.3rem;
+        }
+        .centrado {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Estadísticas</h1>
+        <div class="estadistica">
+            <h2>Tramitaciones totales</h2>
+            <p>{{ total_tramitaciones }}</p>
+        </div>
+        <div class="estadistica">
+            <h2>Productos gestionados</h2>
+            <p>{{ total_productos }}</p>
+        </div>
+        <div class="estadistica">
+            <h2>Tramitaciones por mes (último año)</h2>
+            <ul>
+            {% for mes, cantidad in tramitaciones_por_mes %}
+                <li><b>{{ mes }}:</b> {{ cantidad }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="estadistica">
+            <h2>Tramitaciones totales por año</h2>
+            <ul>
+            {% for anio, cantidad in tramitaciones_por_ano %}
+                <li><b>{{ anio }}:</b> {{ cantidad }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="estadistica">
+            <h2>Productos tramitados por año</h2>
+            <ul>
+            {% for anio, cantidad in productos_por_ano %}
+                <li><b>{{ anio }}:</b> {{ cantidad }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="estadistica">
+            <h2>Número de productos tramitados por código interno</h2>
+            <ul>
+            {% for codigo, cantidad in productos_por_codigo %}
+                <li><b>{{ codigo }}:</b> {{ cantidad }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <p class="centrado"><a href="/" class="boton">Volver al inicio</a></p>
+    </div>
+</body>
+</html>

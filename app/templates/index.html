@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio - Tramitador</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #e3f0ff 0%, #f9f9f9 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 600px;
+            margin: 4rem auto 0 auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(60, 90, 130, 0.10), 0 1.5px 4px rgba(60, 90, 130, 0.08);
+            padding: 3rem 2.5rem 2.5rem 2.5rem;
+        }
+        h1 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+        .botones {
+            margin-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .boton {
+            display: block;
+            width: 100%;
+            padding: 1.1rem 0;
+            font-size: 1.18rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        .boton:hover {
+            background: linear-gradient(90deg, #125ea2 60%, #1976d2 100%);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+            transform: translateY(-2px) scale(1.03);
+        }
+        @media (max-width: 700px) {
+            .container { padding: 1.5rem 0.5rem; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido al sistema de tramitaciones</h1>
+        <div class="botones">
+            <a href="/tramitaciones" class="boton">Tramitaciones</a>
+            <a href="/nueva-tramitacion" class="boton">Crear Tramitación</a>
+            <a href="/buscar-tramitacion" class="boton">Buscar</a>
+            <a href="/estadisticas" class="boton">Estadísticas</a>
+        </div>
+    </div>
+</body>
+</html>
