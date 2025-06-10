@@ -41,11 +41,15 @@ def eliminar_antiguos():
 
 class CambiosDetectados(FileSystemEventHandler):
     def __init__(self):
-        self.ultimo_evento = time.time()
+        self.ultimo_evento = 0
+        self.debounce_segundos = 30  # Solo permite una copia cada 30 segundos
 
-    def on_any_event(self, event):
+    def on_modified(self, event):
+        # Solo reaccionar a cambios en archivos, no directorios
+        if event.is_directory:
+            return
         ahora = time.time()
-        if ahora - self.ultimo_evento > 5:
+        if ahora - self.ultimo_evento > self.debounce_segundos:
             self.ultimo_evento = ahora
             hacer_copia()
 
@@ -58,7 +62,7 @@ if __name__ == "__main__":
 
     try:
         while True:
-            time.sleep(1)
+            time.sleep(3)  # Menos ciclos por segundo, menos CPU
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
